@@ -1,1 +1,0 @@
-./src/Templates/React/JS/index.ts

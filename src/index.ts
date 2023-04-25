@@ -8,7 +8,7 @@ const fs = require("fs");
 import { Command, Option } from "commander";
 import Handlebars from "handlebars";
 
-import { Frameworks, FrameworkTypes } from "./CustomeTypes/Framworks";
+import { Frameworks, FrameworkTypes } from "./CustomTypes/Framworks";
 
 const program = new Command();
 
@@ -92,6 +92,22 @@ const getTemplateSrc = () => {
   }
 };
 
+async function readFile(path: string) {
+  try {
+    const data = await fs.readFileSync(path, { encoding: "utf8" });
+    return data;
+  } catch (err: any) {
+    throw new Error(err);
+  }
+}
+
+const readFilePromise = (path: string) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(path, "utf-8", (err: any, text: any) => {
+      err ? reject(err) : resolve(text);
+    });
+  });
+
 const createFolder = () => {
   try {
     fs.mkdirSync(newFolderPath, { recursive: true });
@@ -108,22 +124,30 @@ const createFile = (path: string, content: string) => {
   });
 };
 
-const createComponent = () => {
+const createComponent = async () => {
   const templateSrc = getTemplateSrc();
 
   console.log(templateSrc);
 
-  const indexTemplate = Handlebars.compile(`${templateSrc?.path}/index.ts`);
-  const componentTemplate = Handlebars.compile(
+  const componentString = await readFilePromise(
     `${templateSrc?.path}/Template.ts`
   );
+
+  const indexString = await readFilePromise(`${templateSrc?.path}/index.ts`);
+  // console.log(indexString);
+
+  // console.log(componentString);
+
+  const componentTemplate = Handlebars.compile(componentString);
+  const indexTemplate = Handlebars.compile(indexString);
+  console.log(componentTemplate);
 
   const data = {
     name: componentName,
   };
 
-  const index = indexTemplate(data);
-  const dssss = componentTemplate(data);
+  const index = indexTemplate(data).replace(/`/g, "");
+  const dssss = componentTemplate(data).replace(/`/g, "");
 
   console.log(index);
 
