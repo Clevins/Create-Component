@@ -7,7 +7,11 @@ const fs = require("fs");
 
 import { Command, Option } from "commander";
 import Handlebars from "handlebars";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
+import indexTemplate from "./Templates/React/JS/index";
+import componentTemplate from "./Templates/React/JS/Template";
 import { Frameworks, FrameworkTypes } from "./CustomTypes/Framworks";
 
 const program = new Command();
@@ -127,19 +131,24 @@ const createFile = (path: string, content: string) => {
 const createComponent = async () => {
   const templateSrc = getTemplateSrc();
 
-  console.log(templateSrc);
 
-  const componentString = await readFilePromise(
-    `${templateSrc?.path}/Template.ts`
-  );
 
-  const indexString = await readFilePromise(`${templateSrc?.path}/index.ts`);
+// 
+  // console.log(path.resolve(dirname, 'file.txt'));
+
+  // const componentString = await readFilePromise(
+  //   `${templateSrc?.path}/Template.hbs`
+  // );
+
+  // const indexString = await readFilePromise(`${templateSrc?.path}/index.hbs`);
   // console.log(indexString);
 
   // console.log(componentString);
 
-  const componentTemplate = Handlebars.compile(componentString);
-  const indexTemplate = Handlebars.compile(indexString);
+  
+
+  // const componentTemplate = Handlebars.compile(componentString);
+  // const indexTemplate = Handlebars.compile(indexString);
   console.log(componentTemplate);
 
   const data = {

@@ -1,4 +1,7 @@
-`import React from "react"
+import Handlebars from "handlebars";
+
+
+const componentString = `import React from "react"
 
 const {{name}} = () => {
 
@@ -10,4 +13,8 @@ const {{name}} = () => {
 };
 
 
-export default {{name}}`;
+export default {{name}};`
+
+const componentTemplate = Handlebars.compile(componentString);
+
+export default componentTemplate

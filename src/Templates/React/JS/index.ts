@@ -1,3 +1,11 @@
-`import {{name}} from './{{name}}';
+import Handlebars from "handlebars";
 
-export default {{name}}`;
+
+const indexString = `import {{name}} from './{{name}}';
+
+export default {{name}};
+`
+
+const indexTemplate = Handlebars.compile(indexString);
+
+export default indexTemplate
