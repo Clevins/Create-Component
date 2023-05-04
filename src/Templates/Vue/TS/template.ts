@@ -1,21 +1,17 @@
 import Handlebars from "handlebars";
 
+const componentString = `<template>
+  <h1>{{name}} Component</h1>
+</template>
 
-const componentString = `import React from "react"
+<script lang="ts">
 
-const {{name}} = () => {
-    //Vue TS
+</script>
 
-  return (
-    <div>
-      <p>{{name}} Component</p>
-    </div>
-  );
-};
+<style scoped>
 
-
-export default {{name}};`
+</style>`;
 
 const componentTemplate = Handlebars.compile(componentString);
 
-export default componentTemplate
+export default componentTemplate;

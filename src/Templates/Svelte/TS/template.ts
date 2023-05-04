@@ -1,20 +1,14 @@
 import Handlebars from "handlebars";
 
+const componentString = `<script lang="ts">
 
-const componentString = `import React from "react"
-// Svelte TS
-const {{name}} = () => {
+</script>
 
-  return (
-    <div>
-      <p>{{name}} Component</p>
-    </div>
-  );
-};
+<h1>{{name}} Component</h1>
 
-
-export default {{name}};`
+<style>
+</style>`;
 
 const componentTemplate = Handlebars.compile(componentString);
 
-export default componentTemplate
+export default componentTemplate;
