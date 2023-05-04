@@ -9,9 +9,14 @@ import { Command, Option } from "commander";
 import Handlebars from "handlebars";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import getComponent from "./lib/getComponent";
 
-import indexTemplate from "./Templates/React/JS/index";
-import componentTemplate from "./Templates/React/JS/Template";
+// import indexTemplate from "./Templates/React/JS/index";
+// import componentTemplate from "./Templates/React/JS/Template";
+
+let indexTemplate: HandlebarsTemplateDelegate<any>;
+let componentTemplate: HandlebarsTemplateDelegate<any>;
+
 import { Frameworks, FrameworkTypes } from "./CustomTypes/Framworks";
 
 const program = new Command();
@@ -70,47 +75,48 @@ const newFolderPath = `${folderPath}${componentName}`;
 
 if (componentName) console.log(`- ${componentName}`);
 
-const getTemplateSrc = () => {
-  console.log("here");
-  switch (options.framework) {
-    case FrameworkTypes.REACT:
-      console.log("here");
-      if (options.typescript) {
-        console.log("here");
-        return {
-          path: "./src/Templates/React/TS",
-          componentFileExtension: "tsx",
-          indexFileExtension: "ts",
-        };
-      }
-      return {
-        path: "./src/Templates/React/JS",
-        componentFileExtension: "jsx",
-        indexFileExtension: "js",
-      };
+// const getTemplateSrc = () => {
+//   console.log("here");
+//   switch (options.framework) {
+//     case FrameworkTypes.REACT:
+//       console.log("here");
+//       if (options.typescript) {
+//         indexTemplate = require("./Templates/React/TS/index");
+//         componentTemplate = require("./Templates/React/TS/Template");
+//         return {
+//           componentFileExtension: "tsx",
+//           indexFileExtension: "ts",
+//         };
+//       }
+//       indexTemplate = require("./Templates/React/JS/index");
+//       componentTemplate = require("./Templates/React/JS/Template");
+//       return {
+//         componentFileExtension: "jsx",
+//         indexFileExtension: "js",
+//       };
 
-    case FrameworkTypes.SVELTE:
-      break;
-    case FrameworkTypes.VUE:
-      break;
-  }
-};
+//     case FrameworkTypes.SVELTE:
+//       break;
+//     case FrameworkTypes.VUE:
+//       break;
+//   }
+// };
 
-async function readFile(path: string) {
-  try {
-    const data = await fs.readFileSync(path, { encoding: "utf8" });
-    return data;
-  } catch (err: any) {
-    throw new Error(err);
-  }
-}
+// async function readFile(path: string) {
+//   try {
+//     const data = await fs.readFileSync(path, { encoding: "utf8" });
+//     return data;
+//   } catch (err: any) {
+//     throw new Error(err);
+//   }
+// }
 
-const readFilePromise = (path: string) =>
-  new Promise((resolve, reject) => {
-    fs.readFile(path, "utf-8", (err: any, text: any) => {
-      err ? reject(err) : resolve(text);
-    });
-  });
+// const readFilePromise = (path: string) =>
+//   new Promise((resolve, reject) => {
+//     fs.readFile(path, "utf-8", (err: any, text: any) => {
+//       err ? reject(err) : resolve(text);
+//     });
+//   });
 
 const createFolder = () => {
   try {
@@ -129,11 +135,10 @@ const createFile = (path: string, content: string) => {
 };
 
 const createComponent = async () => {
-  const templateSrc = getTemplateSrc();
+  // const templateSrc = getTemplateSrc();
 
-
-
-// 
+  const newComponent = getComponent(options)!;
+  //
   // console.log(path.resolve(dirname, 'file.txt'));
 
   // const componentString = await readFilePromise(
@@ -145,28 +150,28 @@ const createComponent = async () => {
 
   // console.log(componentString);
 
-  
-
   // const componentTemplate = Handlebars.compile(componentString);
   // const indexTemplate = Handlebars.compile(indexString);
-  console.log(componentTemplate);
+
+  const {
+    indexTemplate,
+    componentTemplate,
+    indexFileExtension,
+    componentFileExtension,
+  } = newComponent;
 
   const data = {
     name: componentName,
   };
 
   const index = indexTemplate(data).replace(/`/g, "");
-  const dssss = componentTemplate(data).replace(/`/g, "");
+  const component = componentTemplate(data).replace(/`/g, "");
 
-  console.log(index);
+  createFile(`${newFolderPath}/index.${indexFileExtension}`, index);
 
   createFile(
-    `${newFolderPath}/${componentName}.${templateSrc?.componentFileExtension}`,
-    dssss
-  );
-  createFile(
-    `${newFolderPath}/index.${templateSrc?.indexFileExtension}`,
-    index
+    `${newFolderPath}/${componentName}.${componentFileExtension}`,
+    component
   );
 };
 
