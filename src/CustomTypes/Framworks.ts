@@ -1,7 +1,7 @@
 export enum FrameworkTypes {
-  REACT = "React",
-  VUE = "Vue",
-  SVELTE = "Svelte",
+  REACT = "react",
+  VUE = "vue",
+  SVELTE = "svelte",
 }
 
-export const Frameworks = ["React", "Vue", "Svelte"];
+export const Frameworks = ["react", "vue", "svelte"];
