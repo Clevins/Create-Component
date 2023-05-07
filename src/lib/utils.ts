@@ -13,11 +13,12 @@ export const createFolder = (componentFolderPath: string) => {
 };
 
 export const createFile = (path: string, content: string) => {
-  fs.writeFile(path, content, (err: string | undefined) => {
-    if (err) throw new Error(err);
+  try {
+    fs.writeFileSync(path, content);
     console.log("Created Component: ", path);
-    return true;
-  });
+  } catch (e) {
+    throw new Error();
+  }
 };
 
 export const createComponent = async (newComponent: Component) => {
