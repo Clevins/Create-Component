@@ -18,7 +18,7 @@ console.log(
   )
 );
 
-const parentFolderPath = "./src/Components";
+const parentFolderPath = "./src/components";
 const componentFolderPath = `${parentFolderPath}/${componentName}`;
 
 const newComponent = getComponent(options, componentName, componentFolderPath)!;

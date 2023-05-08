@@ -25,13 +25,12 @@ export const createComponent = async (newComponent: Component) => {
   const {
     name,
     componentFolderPath,
+    hasIndex,
     indexTemplate,
     componentTemplate,
     indexFileExtension,
     componentFileExtension,
   } = newComponent;
-
-  const hasIndexFile = true;
 
   const data = { name };
 
@@ -39,7 +38,7 @@ export const createComponent = async (newComponent: Component) => {
   const componentFilePath = `${componentFolderPath}/${name}.${componentFileExtension}`;
   createFile(componentFilePath, component);
 
-  if (hasIndexFile) {
+  if (hasIndex) {
     const index = indexTemplate(data).replace(/`/g, "");
     const indexFilePath = `${componentFolderPath}/index.${indexFileExtension}`;
     createFile(indexFilePath, index);

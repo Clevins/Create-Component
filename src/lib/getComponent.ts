@@ -8,16 +8,10 @@ import reactJSComponentTemplate from "../Templates/React/JS/template";
 import reactTSIndexTemplate from "../Templates/React/TS/index";
 import reactTSComponentTemplate from "../Templates/React/TS/template";
 
-import vueJSIndexTemplate from "../Templates/Vue/JS/index";
 import vueJSComponentTemplate from "../Templates/Vue/JS/template";
-
-import vueTSIndexTemplate from "../Templates/Vue/TS/index";
 import vueTSComponentTemplate from "../Templates/Vue/TS/template";
 
-import svelteJSIndexTemplate from "../Templates/Svelte/JS/index";
 import svelteJSComponentTemplate from "../Templates/Svelte/JS/template";
-
-import svelteTSIndexTemplate from "../Templates/Svelte/TS/index";
 import svelteTSComponentTemplate from "../Templates/Svelte/TS/template";
 
 const getComponent = (
@@ -31,19 +25,21 @@ const getComponent = (
         return new Component(
           componentName,
           componentFolderPath,
-          reactTSIndexTemplate,
+          true,
           reactTSComponentTemplate,
           "tsx",
-          "ts"
+          "ts",
+          reactTSIndexTemplate
         );
       }
       return new Component(
         componentName,
         componentFolderPath,
-        reactJSIndexTemplate,
+        true,
         reactJSComponentTemplate,
         "jsx",
-        "js"
+        "js",
+        reactJSIndexTemplate
       );
 
     case FrameworkTypes.SVELTE:
@@ -51,7 +47,7 @@ const getComponent = (
         return new Component(
           componentName,
           componentFolderPath,
-          svelteTSIndexTemplate,
+          false,
           svelteTSComponentTemplate,
           "svelte",
           "ts"
@@ -60,7 +56,7 @@ const getComponent = (
       return new Component(
         componentName,
         componentFolderPath,
-        svelteJSIndexTemplate,
+        false,
         svelteJSComponentTemplate,
         "svelte",
         "js"
@@ -70,7 +66,7 @@ const getComponent = (
         return new Component(
           componentName,
           componentFolderPath,
-          vueTSIndexTemplate,
+          false,
           vueTSComponentTemplate,
           "vue",
           "ts"
@@ -79,7 +75,7 @@ const getComponent = (
       return new Component(
         componentName,
         componentFolderPath,
-        vueJSIndexTemplate,
+        false,
         vueJSComponentTemplate,
         "vue",
         "js"
