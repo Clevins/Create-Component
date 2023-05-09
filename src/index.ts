@@ -14,7 +14,7 @@ const [componentName] = program.args;
 
 console.log(
   chalk.red(
-    figlet.textSync("Create Component cli", { horizontalLayout: "full" })
+    figlet.textSync("Create Component TS cli", { horizontalLayout: "full" })
   )
 );
 

@@ -1,11 +1,10 @@
 {
-  "name": "create-component",
-  "version": "1.0.0",
+  "name": "create-component-ts",
+  "version": "0.1.1",
   "description": "CLI to quickly create boilerplate components in React, Svelte or Vue",
   "main": "./lib/index.js",
-  "private": true,
   "bin": {
-    "create-component": "./lib/index.js"
+    "create-component-ts": "./lib/index.js"
   },
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts Button -f react",

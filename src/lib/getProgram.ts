@@ -5,11 +5,11 @@ const program = new Command();
 
 const getProgram = () => {
   program
-    .name("create-component")
+    .name("create-component-ts")
     .description(
       "CLI to quickly create boilerplate components in React, Svelte or Vue"
     )
-    .version("1.0.0");
+    .version("0.1.1");
 
   program
     .arguments("<name>")
