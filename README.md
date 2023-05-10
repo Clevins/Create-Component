@@ -3,6 +3,8 @@
 
 A CLI used for quickly creating component boilerplates for multiple JS frameworks such as React, Svelte, and Vue. 
 
+NPM link [here](https://www.npmjs.com/package/create-component-ts).
+
 ## Features
 
 - Create boilerplate components for:
